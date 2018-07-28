@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "stm32f4_eink", "stm32f4_eink\stm32f4_eink.vcxproj", "{0D707C9A-7AE4-4B6B-B952-B98BEC5E3D55}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|VisualGDB = Debug|VisualGDB
+		Release|VisualGDB = Release|VisualGDB
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0D707C9A-7AE4-4B6B-B952-B98BEC5E3D55}.Debug|VisualGDB.ActiveCfg = Debug|VisualGDB
+		{0D707C9A-7AE4-4B6B-B952-B98BEC5E3D55}.Debug|VisualGDB.Build.0 = Debug|VisualGDB
+		{0D707C9A-7AE4-4B6B-B952-B98BEC5E3D55}.Release|VisualGDB.ActiveCfg = Release|VisualGDB
+		{0D707C9A-7AE4-4B6B-B952-B98BEC5E3D55}.Release|VisualGDB.Build.0 = Release|VisualGDB
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9E92DF9E-7162-4DD6-B862-817C745705A5}
+	EndGlobalSection
+EndGlobal
