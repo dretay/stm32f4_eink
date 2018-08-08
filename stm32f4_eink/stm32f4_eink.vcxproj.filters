@@ -37,6 +37,9 @@
     <Filter Include="Header files\util">
       <UniqueIdentifier>{b4499243-7c41-4dee-892e-b5d2a031d736}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header files\ugfx\images">
+      <UniqueIdentifier>{7d78a3d9-093a-4e01-8718-6e06d3bae882}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="stm32.props">
@@ -677,11 +680,20 @@
     <ClInclude Include="..\..\waveshare_7.5_epaper\gdisp_lld_config.h">
       <Filter>Header files\ugfx</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\waveshare_7.5_epaper\board_WAVESHARE75.h">
-      <Filter>Header files\ugfx</Filter>
-    </ClInclude>
     <ClInclude Include="dwt_stm32_delay.h">
       <Filter>Header files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\waveshare_7.5_epaper\WAVESHARE75.h">
+      <Filter>Header files\ugfx</Filter>
+    </ClInclude>
+    <ClInclude Include="bithelper.h">
+      <Filter>Header files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\waveshare_7.5_epaper\stm32_board_WAVESHARE75.h">
+      <Filter>Header files\ugfx</Filter>
+    </ClInclude>
+    <ClInclude Include="romfs_files.h">
+      <Filter>Header files\ugfx\images</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -15,6 +15,6 @@
 
 #include "stm32f4xx_hal.h"
 #include "gfx.h"
-
+#include <string.h>
 
 void run(void);

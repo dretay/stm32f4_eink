@@ -70,10 +70,10 @@
 //#define GDISP_NEED_TIMERFLUSH                        FALSE
 //#define GDISP_NEED_VALIDATION                        TRUE
 //#define GDISP_NEED_CLIP                              TRUE
-//#define GDISP_NEED_CIRCLE                            FALSE
+#define GDISP_NEED_CIRCLE                            TRUE
 //#define GDISP_NEED_DUALCIRCLE                        FALSE
 //#define GDISP_NEED_ELLIPSE                           FALSE
-//#define GDISP_NEED_ARC                               FALSE
+#define GDISP_NEED_ARC                               TRUE
 //#define GDISP_NEED_ARCSECTORS                        FALSE
 //#define GDISP_NEED_CONVEX_POLYGON                    FALSE
 //#define GDISP_NEED_SCROLL                            FALSE
@@ -85,10 +85,10 @@
 #define GDISP_NEED_TEXT                              TRUE
 //    #define GDISP_NEED_TEXT_WORDWRAP                 FALSE
 //    #define GDISP_NEED_TEXT_BOXPADLR                 1
-//    #define GDISP_NEED_TEXT_BOXPADTB                 1
+    //#define GDISP_NEED_TEXT_BOXPADTB                 10
 //    #define GDISP_NEED_ANTIALIAS                     FALSE
 //    #define GDISP_NEED_UTF8                          FALSE
-//    #define GDISP_NEED_TEXT_KERNING                  FALSE
+    #define GDISP_NEED_TEXT_KERNING                  FALSE
 //    #define GDISP_INCLUDE_FONT_UI1                   FALSE
 //    #define GDISP_INCLUDE_FONT_UI2                   FALSE		// The smallest preferred font.
 #define GDISP_INCLUDE_FONT_LARGENUMBERS          FALSE
@@ -96,7 +96,7 @@
 #define GDISP_INCLUDE_FONT_DEJAVUSANS12          TRUE
 #define GDISP_INCLUDE_FONT_DEJAVUSANS16          FALSE
 #define GDISP_INCLUDE_FONT_DEJAVUSANS20          TRUE
-#define GDISP_INCLUDE_FONT_DEJAVUSANS24          FALSE
+#define GDISP_INCLUDE_FONT_DEJAVUSANS24          TRUE
 #define GDISP_INCLUDE_FONT_DEJAVUSANS32          TRUE
 #define GDISP_INCLUDE_FONT_DEJAVUSANSBOLD12      TRUE
 #define GDISP_INCLUDE_FONT_FIXED_10X20           FALSE
@@ -110,11 +110,11 @@
 //    #define GDISP_INCLUDE_FONT_DEJAVUSANSBOLD12_AA   FALSE
 //    #define GDISP_INCLUDE_USER_FONTS                 FALSE
 
-//#define GDISP_NEED_IMAGE                             FALSE
+#define GDISP_NEED_IMAGE                             TRUE
 //    #define GDISP_NEED_IMAGE_NATIVE                  FALSE
 //    #define GDISP_NEED_IMAGE_GIF                     FALSE
 //        #define GDISP_IMAGE_GIF_BLIT_BUFFER_SIZE     32
-//    #define GDISP_NEED_IMAGE_BMP                     FALSE
+    #define GDISP_NEED_IMAGE_BMP                     TRUE
 //        #define GDISP_NEED_IMAGE_BMP_1               TRUE
 //        #define GDISP_NEED_IMAGE_BMP_4               TRUE
 //        #define GDISP_NEED_IMAGE_BMP_4_RLE           TRUE
@@ -125,7 +125,7 @@
 //        #define GDISP_NEED_IMAGE_BMP_32              TRUE
 //        #define GDISP_IMAGE_BMP_BLIT_BUFFER_SIZE     32
 //    #define GDISP_NEED_IMAGE_JPG                     FALSE
-//    #define GDISP_NEED_IMAGE_PNG                     FALSE
+    #define GDISP_NEED_IMAGE_PNG                     TRUE
 //        #define GDISP_NEED_IMAGE_PNG_INTERLACED      FALSE
 //        #define GDISP_NEED_IMAGE_PNG_TRANSPARENCY    TRUE
 //        #define GDISP_NEED_IMAGE_PNG_BACKGROUND      TRUE
@@ -172,7 +172,7 @@
 //        #define GDISP_HARDWARE_QUERY                 FALSE
 //        #define GDISP_HARDWARE_CLIP                  FALSE
 
-#define GDISP_PIXELFORMAT                    GDISP_PIXELFORMAT_MONO
+#define GDISP_PIXELFORMAT                    GDISP_PIXELFORMAT_GRAY4
 #endif
 
 //#define GDISP_USE_GFXNET                             FALSE
@@ -298,7 +298,7 @@
 ///////////////////////////////////////////////////////////////////////////
 // GFILE                                                                 //
 ///////////////////////////////////////////////////////////////////////////
-//#define GFX_USE_GFILE                                FALSE
+#define GFX_USE_GFILE                                TRUE
 
 //#define GFILE_NEED_PRINTG                            FALSE
 //#define GFILE_NEED_SCANG                             FALSE
@@ -309,7 +309,7 @@
 //#define GFILE_NEED_NOAUTOSYNC                        FALSE
 
 //#define GFILE_NEED_MEMFS                             FALSE
-//#define GFILE_NEED_ROMFS                             FALSE
+#define GFILE_NEED_ROMFS                             TRUE
 //#define GFILE_NEED_RAMFS                             FALSE
 //#define GFILE_NEED_FATFS                             FALSE
 //#define GFILE_NEED_NATIVEFS                          FALSE

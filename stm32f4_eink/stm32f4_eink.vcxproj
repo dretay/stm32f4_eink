@@ -14,7 +14,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{0D707C9A-7AE4-4B6B-B952-B98BEC5E3D55}</ProjectGuid>
     <BSP_ID>com.sysprogs.arm.stm32</BSP_ID>
-    <BSP_VERSION>4.7</BSP_VERSION>
+    <BSP_VERSION>4.7R3</BSP_VERSION>
     <InPlaceBSPSubdir />
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -68,12 +68,15 @@
     <ClCompile Include="..\Src\stm32f4xx_it.c" />
     <ClCompile Include="..\Src\system_stm32f4xx.c" />
     <ClCompile Include="application.c" />
-    <ClInclude Include="..\..\waveshare_7.5_epaper\board_WAVESHARE75.h" />
     <ClInclude Include="..\..\waveshare_7.5_epaper\gdisp_lld_config.h" />
+    <ClInclude Include="..\..\waveshare_7.5_epaper\stm32_board_WAVESHARE75.h" />
+    <ClInclude Include="..\..\waveshare_7.5_epaper\WAVESHARE75.h" />
     <ClInclude Include="..\Inc\stm32f4xx_hal_conf.h" />
     <ClInclude Include="..\Inc\stm32f4xx_it.h" />
+    <ClInclude Include="bithelper.h" />
     <ClInclude Include="dwt_stm32_delay.h" />
     <ClInclude Include="gfxconf.h" />
+    <ClInclude Include="romfs_files.h" />
     <None Include="stm32.props" />
     <ClCompile Include="$(BSP_ROOT)\STM32F4xxxx\StartupFiles\startup_stm32f407xx.c" />
     <ClCompile Include="$(BSP_ROOT)\STM32F4xxxx\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal.c" />

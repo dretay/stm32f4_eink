@@ -4,3 +4,4 @@ Drivers/
 stm32f4_eink/VisualGDB/
 VisualGDB/Debug/
 .vs/
+/docs/7.5inch-e-paper-hat-code
