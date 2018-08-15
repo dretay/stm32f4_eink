@@ -1,0 +1,45 @@
+syntax = "proto2";
+
+message Weather{
+	enum WeatherType {
+		CHANCEOFSTORM = 0;
+		CLOUDS = 1;
+		FOGDAY = 2;
+		FOGNIGHT = 3;
+		LITTLERAIN = 4;
+		LITTLESNOW = 5;
+		MOON = 6;
+		PARTLYCLOUDYDAY = 7;
+		PARTLYCLOUDYNIGHT = 8;
+		RAIN = 9;
+		SLEET = 10;
+		SNOW = 11;
+		STORM = 12;
+	}
+	required WeatherType type = 1;  
+	required uint32 hour_of_day = 2;
+	required uint32 idx= 3;
+}
+
+message Meeting{
+	required uint32 start = 1;
+	required uint32 end = 2;
+	required string title = 3;
+	required string room = 4;
+	required uint32 idx= 5;
+}
+message RetrivalStatus{
+	enum StatusType {
+		START = 0;
+		UPDATE = 1;
+		SUCCESS = 2;	
+		FAIL= 3;	
+	}
+	required StatusType status = 1; 
+	optional string message = 2;
+}
+message UnionMessage{	
+	optional RetrivalStatus state = 1;
+	optional Meeting meeting = 2;
+	optional Weather weather = 3;
+}

@@ -1,0 +1,4 @@
+Meeting.title max_size:32
+Meeting.room max_size:32
+
+RetrivalStatus.message max_size:32
