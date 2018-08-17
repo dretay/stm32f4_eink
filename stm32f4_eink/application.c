@@ -41,8 +41,9 @@ bool decode_unionmessage_contents(pb_istream_t *stream, const pb_field_t fields[
 
 uint8_t aRxBuffer[MAX_I2C_BUFFER];
 
-
-Meeting meetings[6];
+#define MAX_MEETINGS 10
+Meeting meetings[MAX_MEETINGS];
+int meetings_cnt = 0;
 //not sure this is legit...
 void reset_rx_buffer()
 {
@@ -51,6 +52,7 @@ void reset_rx_buffer()
 }
 void run(void)
 {
+	EInk.init();
 	memset(aRxBuffer, '\0', sizeof(char) * MAX_I2C_MSG);
 	while (true)
 	{
@@ -72,6 +74,24 @@ void run(void)
 		
 		if (type == RetrivalStatus_fields)
 		{
+			RetrivalStatus status;
+			if (decode_unionmessage_contents(&stream, RetrivalStatus_fields, &status))
+			{				
+				if (status.status == RetrivalStatus_StatusType_START)
+				{
+					memset(meetings, '\0', sizeof(Meeting) * MAX_MEETINGS);		
+					meetings_cnt = 0;
+				}
+				else if (status.status == RetrivalStatus_StatusType_FLUSH)
+				{
+					EInk.draw(meetings,meetings_cnt);		
+				}
+				reset_rx_buffer();
+			}
+			else
+			{
+				Error_Handler();   
+			}
 			reset_rx_buffer();
 
 		}
@@ -81,6 +101,7 @@ void run(void)
 			if (decode_unionmessage_contents(&stream, Meeting_fields, &meeting))
 			{
 				memcpy(&meetings[meeting.idx], &meeting, sizeof(Meeting));				
+				meetings_cnt++;
 				reset_rx_buffer();
 			}
 			else

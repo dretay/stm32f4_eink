@@ -10,6 +10,7 @@
 #include "union.pb.h"
 
 #include "stm32f4xx_hal.h"
+#include "eink.h"
 
 #define MAX_I2C_MSG 31
 #define MAX_I2C_BUFFER 128

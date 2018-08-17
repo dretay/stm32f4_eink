@@ -1,4 +1,6 @@
-Meeting.title max_size:32
-Meeting.room max_size:32
+Meeting.start max_size:9
+Meeting.end max_size:9
+Meeting.title max_size:64
+Meeting.room max_size:64
 
 RetrivalStatus.message max_size:32

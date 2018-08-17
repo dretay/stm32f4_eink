@@ -22,8 +22,8 @@ message Weather{
 }
 
 message Meeting{
-	required uint32 start = 1;
-	required uint32 end = 2;
+	required string start = 1;
+	required string end = 2;
 	required string title = 3;
 	required string room = 4;
 	required uint32 idx= 5;
@@ -32,7 +32,7 @@ message RetrivalStatus{
 	enum StatusType {
 		START = 0;
 		UPDATE = 1;
-		SUCCESS = 2;	
+		FLUSH = 2;	
 		FAIL= 3;	
 	}
 	required StatusType status = 1; 

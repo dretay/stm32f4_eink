@@ -14,3 +14,11 @@
 #include "stm32f4xx_hal.h"
 #include "gfx.h"
 #include <string.h>
+#include "union.pb.h"
+
+struct eink
+{
+	void(*init)();
+	void(*draw)(Meeting*,int);
+};
+extern const struct eink EInk;

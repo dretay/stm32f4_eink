@@ -53,7 +53,7 @@ static void render_date_header()
 
 
 }
-void render_container(coord_t x, coord_t y, coord_t height, char* header)
+static void render_container(coord_t x, coord_t y, coord_t height, char* header)
 {
 	coord_t arc_coord_x = 25;		
 	font_t header_font = DejaVuSans12Bold;
@@ -81,66 +81,62 @@ void render_container(coord_t x, coord_t y, coord_t height, char* header)
 		White, 
 		justifyCenter);
 }
-static void render_next_meetings()
+static void render_next_meetings(Meeting *meetings, int meeting_count)
 {
 	coord_t cell_spacing = 0;
 	coord_t meetings_offset = 20;
 	coord_t meetings_starting_offset = 123;
 	
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < meeting_count; i++)
 	{
-		static const char next_meeting_start[14] = "11:15";
 		font_t next_meeting_start_font = DejaVuSans16;
-		coord_t next_meeting_start_width = gdispGetStringWidth(next_meeting_start, next_meeting_start_font) + 1;
+		coord_t next_meeting_start_width = gdispGetStringWidth(meetings[i].start, next_meeting_start_font) + 1;
 		coord_t next_meeting_start_height = gdispGetFontMetric(next_meeting_start_font, fontHeight) + 1;
 		gdispDrawStringBox(
 			10, 
 			(meetings_offset * 2)+(i*cell_spacing)+meetings_starting_offset+15, 
 			next_meeting_start_width, 
 			next_meeting_start_height, 
-			next_meeting_start, 
+			meetings[i].start, 
 			next_meeting_start_font, 
 			Black, 
 			justifyCenter);
 
-		static const char next_meeting_end[14] = "12:00";
 		font_t next_meeting_end_font = DejaVuSans16;
-		coord_t next_meeting_end_width = gdispGetStringWidth(next_meeting_start, next_meeting_end_font) + 1;
+		coord_t next_meeting_end_width = gdispGetStringWidth(meetings[i].end, next_meeting_end_font) + 1;
 		coord_t next_meeting_end_height = gdispGetFontMetric(next_meeting_end_font, fontHeight) + 1;
 		gdispDrawStringBox(
 			10, 
 			(meetings_offset * 2)+(i * cell_spacing)+meetings_starting_offset+next_meeting_start_height+15, 
 			next_meeting_end_width, 
 			next_meeting_end_height, 
-			next_meeting_end, 
+			meetings[i].end, 
 			next_meeting_end_font, 
 			Black, 
 			justifyCenter);
 
-		static const char next_meeting_summary[40] = "ESPIR 1.0 Daily Standup";
 		font_t next_meeting_summary_font = DejaVuSans20;
-		coord_t next_meeting_summary_width = gdispGetStringWidth(next_meeting_summary, next_meeting_summary_font) + 1;
+		coord_t next_meeting_summary_width = gdispGetStringWidth(meetings[i].title, next_meeting_summary_font) + 1;
 		coord_t next_meeting_summary_height = gdispGetFontMetric(next_meeting_summary_font, fontHeight) + 1;
 		gdispDrawStringBox(
 			next_meeting_start_width+20, 
 			(meetings_offset * 2)+(i * cell_spacing)+meetings_starting_offset+10, 
 			next_meeting_summary_width, 
 			next_meeting_summary_height, 
-			next_meeting_summary, 
+			meetings[i].title, 
 			next_meeting_summary_font, 
 			Black, 
 			justifyCenter);
 
-		static const char next_meeting_time[40] = "Conference Room A";
 		font_t next_meeting_time_font = DejaVuSans16;
-		coord_t next_meeting_time_width = gdispGetStringWidth(next_meeting_time, next_meeting_time_font) + 1;
+		coord_t next_meeting_time_width = gdispGetStringWidth(meetings[i].room, next_meeting_time_font) + 1;
 		coord_t next_meeting_time_height = gdispGetFontMetric(next_meeting_time_font, fontHeight) + 1;
 		gdispDrawStringBox(
 			next_meeting_start_width+20, 
 			(meetings_offset * 2)+(i * cell_spacing)+meetings_starting_offset+next_meeting_summary_height+10, 
 			next_meeting_time_width, 
 			next_meeting_time_height, 
-			next_meeting_time, 
+			meetings[i].room, 
 			next_meeting_time_font, 
 			Black, 
 			justifyCenter);
@@ -150,7 +146,7 @@ static void render_next_meetings()
 	static const char header[12] = "Meetings";
 	render_container(0, meetings_starting_offset + meetings_offset, 439, &header);
 }
-void render_todo()
+static void render_todo()
 {
 	coord_t todo_offset = 459;
 	coord_t TodoHeight = 0;
@@ -178,7 +174,7 @@ void render_todo()
 
 }
 
-void render_weather()
+static void render_weather()
 {	
 	coord_t weather_img_width = 48;
 	coord_t weather_img_height = 48;
@@ -215,30 +211,39 @@ void render_weather()
 	static const char header[12] = "Weather";
 	render_container(0, DateHeaderHeight, 123, &header);
 }
+static void init()
+{
+	gfxInit();
+	DejaVuSans10 =  gdispOpenFont("DejaVuSans10");
+	DejaVuSans12 =  gdispOpenFont("DejaVuSans12");
+	DejaVuSans12Bold =  gdispOpenFont("DejaVuSansBold12");
+	DejaVuSans16 =  gdispOpenFont("DejaVuSans16");
 
-//	gfxInit();
-//	DejaVuSans10 =  gdispOpenFont("DejaVuSans10");
-//	DejaVuSans12 =  gdispOpenFont("DejaVuSans12");
-//	DejaVuSans12Bold =  gdispOpenFont("DejaVuSansBold12");
-//	DejaVuSans16 =  gdispOpenFont("DejaVuSans16");
-//
-//	DejaVuSans20 = gdispOpenFont("DejaVuSans20");
-//	DejaVuSans24 = gdispOpenFont("DejaVuSans24");
-//	
-//	DejaVuSans32 = gdispOpenFont("DejaVuSans32");
-//	Fixed_5x8 = gdispOpenFont("fixed_5x8");
-//	Fixed_7x14 = gdispOpenFont("fixed_7x14");
-//	
-//	DisplayWidth = gdispGetWidth();
-//	DisplayWidthMidpoint = DisplayWidth / 2;
-//	DisplayHeight = gdispGetHeight();
-//	DisplayHeightMidpoint = DisplayHeight / 2;
-//	
-//	
-//	gdispClear(White);
-//	render_date_header();
-//	render_weather();
-//	render_next_meetings();
-//	render_todo();
-//
-//	gdispGFlush(gdispGetDisplay(0));	
+	DejaVuSans20 = gdispOpenFont("DejaVuSans20");
+	DejaVuSans24 = gdispOpenFont("DejaVuSans24");
+	
+	DejaVuSans32 = gdispOpenFont("DejaVuSans32");
+	Fixed_5x8 = gdispOpenFont("fixed_5x8");
+	Fixed_7x14 = gdispOpenFont("fixed_7x14");
+	
+	DisplayWidth = gdispGetWidth();
+	DisplayWidthMidpoint = DisplayWidth / 2;
+	DisplayHeight = gdispGetHeight();
+	DisplayHeightMidpoint = DisplayHeight / 2;
+}
+static void draw(Meeting *meetings, int meeting_count)
+{
+	gdispClear(White);
+	render_date_header();
+	render_weather();
+	render_next_meetings(meetings,meeting_count);
+	render_todo();
+
+	gdispGFlush(gdispGetDisplay(0));	
+}
+const struct eink EInk = { 
+	.init = init,
+	.draw = draw,
+};
+	
+	
