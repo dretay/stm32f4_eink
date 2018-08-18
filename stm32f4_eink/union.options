@@ -1,5 +1,5 @@
-Meeting.start max_size:9
-Meeting.end max_size:9
+Meeting.human_start max_size:9
+Meeting.human_end max_size:9
 Meeting.title max_size:64
 Meeting.room max_size:64
 

@@ -22,11 +22,12 @@ message Weather{
 }
 
 message Meeting{
-	required string start = 1;
-	required string end = 2;
-	required string title = 3;
-	required string room = 4;
-	required uint32 idx= 5;
+	required uint32 start=1;
+	required string human_start = 2;
+	required string human_end = 3;
+	required string title = 4;
+	required string room = 5;
+	required uint32 idx= 6;
 }
 message RetrivalStatus{
 	enum StatusType {
@@ -38,8 +39,12 @@ message RetrivalStatus{
 	required StatusType status = 1; 
 	optional string message = 2;
 }
+message Time{
+	required uint32 localtime = 1;
+}
 message UnionMessage{	
 	optional RetrivalStatus state = 1;
 	optional Meeting meeting = 2;
 	optional Weather weather = 3;
+	optional Time time = 4;
 }

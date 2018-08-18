@@ -81,36 +81,47 @@ static void render_container(coord_t x, coord_t y, coord_t height, char* header)
 		White, 
 		justifyCenter);
 }
-static void render_next_meetings(Meeting *meetings, int meeting_count)
+#define MIN(x, y) (((x) < (y)) ? (x) : (y))
+static void render_next_meetings(Time *time, Meeting *meetings, int meeting_count)
 {
 	coord_t cell_spacing = 0;
 	coord_t meetings_offset = 20;
 	coord_t meetings_starting_offset = 123;
+
+	int meetings_to_display = 6;
+	int start = 0;
+	for (start = 0; start < meeting_count; start++)
+	{
+		if (!(time->localtime > meetings[start].start))
+		{
+			break;
+		}
+	}
 	
-	for (int i = 0; i < meeting_count; i++)
+	for (int i = start; i < MIN(start + meetings_to_display, meeting_count); i++)
 	{
 		font_t next_meeting_start_font = DejaVuSans16;
-		coord_t next_meeting_start_width = gdispGetStringWidth(meetings[i].start, next_meeting_start_font) + 1;
+		coord_t next_meeting_start_width = gdispGetStringWidth(meetings[i].human_start, next_meeting_start_font) + 1;
 		coord_t next_meeting_start_height = gdispGetFontMetric(next_meeting_start_font, fontHeight) + 1;
 		gdispDrawStringBox(
 			10, 
-			(meetings_offset * 2)+(i*cell_spacing)+meetings_starting_offset+15, 
+			(meetings_offset * 2)+((i-start)*cell_spacing)+meetings_starting_offset+15, 
 			next_meeting_start_width, 
 			next_meeting_start_height, 
-			meetings[i].start, 
+			meetings[i].human_start, 
 			next_meeting_start_font, 
 			Black, 
 			justifyCenter);
 
 		font_t next_meeting_end_font = DejaVuSans16;
-		coord_t next_meeting_end_width = gdispGetStringWidth(meetings[i].end, next_meeting_end_font) + 1;
+		coord_t next_meeting_end_width = gdispGetStringWidth(meetings[i].human_end, next_meeting_end_font) + 1;
 		coord_t next_meeting_end_height = gdispGetFontMetric(next_meeting_end_font, fontHeight) + 1;
 		gdispDrawStringBox(
 			10, 
-			(meetings_offset * 2)+(i * cell_spacing)+meetings_starting_offset+next_meeting_start_height+15, 
+			(meetings_offset * 2)+((i - start) * cell_spacing)+meetings_starting_offset+next_meeting_start_height+15, 
 			next_meeting_end_width, 
 			next_meeting_end_height, 
-			meetings[i].end, 
+			meetings[i].human_end, 
 			next_meeting_end_font, 
 			Black, 
 			justifyCenter);
@@ -120,7 +131,7 @@ static void render_next_meetings(Meeting *meetings, int meeting_count)
 		coord_t next_meeting_summary_height = gdispGetFontMetric(next_meeting_summary_font, fontHeight) + 1;
 		gdispDrawStringBox(
 			next_meeting_start_width+20, 
-			(meetings_offset * 2)+(i * cell_spacing)+meetings_starting_offset+10, 
+			(meetings_offset * 2)+((i - start) * cell_spacing)+meetings_starting_offset+10, 
 			next_meeting_summary_width, 
 			next_meeting_summary_height, 
 			meetings[i].title, 
@@ -133,7 +144,7 @@ static void render_next_meetings(Meeting *meetings, int meeting_count)
 		coord_t next_meeting_time_height = gdispGetFontMetric(next_meeting_time_font, fontHeight) + 1;
 		gdispDrawStringBox(
 			next_meeting_start_width+20, 
-			(meetings_offset * 2)+(i * cell_spacing)+meetings_starting_offset+next_meeting_summary_height+10, 
+			(meetings_offset * 2)+((i - start) * cell_spacing)+meetings_starting_offset+next_meeting_summary_height+10, 
 			next_meeting_time_width, 
 			next_meeting_time_height, 
 			meetings[i].room, 
@@ -231,12 +242,12 @@ static void init()
 	DisplayHeight = gdispGetHeight();
 	DisplayHeightMidpoint = DisplayHeight / 2;
 }
-static void draw(Meeting *meetings, int meeting_count)
+static void draw(Time *time, Meeting *meetings, int meeting_count)
 {
 	gdispClear(White);
 	render_date_header();
 	render_weather();
-	render_next_meetings(meetings,meeting_count);
+	render_next_meetings(time,meetings,meeting_count);
 	render_todo();
 
 	gdispGFlush(gdispGetDisplay(0));	

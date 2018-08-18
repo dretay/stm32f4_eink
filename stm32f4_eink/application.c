@@ -44,6 +44,7 @@ uint8_t aRxBuffer[MAX_I2C_BUFFER];
 #define MAX_MEETINGS 10
 Meeting meetings[MAX_MEETINGS];
 int meetings_cnt = 0;
+Time time;
 //not sure this is legit...
 void reset_rx_buffer()
 {
@@ -84,7 +85,7 @@ void run(void)
 				}
 				else if (status.status == RetrivalStatus_StatusType_FLUSH)
 				{
-					EInk.draw(meetings,meetings_cnt);		
+					EInk.draw(&time,meetings,meetings_cnt);		
 				}
 				reset_rx_buffer();
 			}
@@ -113,6 +114,17 @@ void run(void)
 		{
 			reset_rx_buffer();
 		
+		}
+		else if (type == Time_fields)
+		{			
+			if (decode_unionmessage_contents(&stream, Time_fields, &time))
+			{				
+				reset_rx_buffer();
+			}
+			else
+			{
+				Error_Handler();   
+			}		
 		}
 		else
 		{

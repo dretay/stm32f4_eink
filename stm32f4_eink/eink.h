@@ -15,10 +15,11 @@
 #include "gfx.h"
 #include <string.h>
 #include "union.pb.h"
+#include "math.h"
 
 struct eink
 {
 	void(*init)();
-	void(*draw)(Meeting*,int);
+	void(*draw)(Time*,Meeting*,int);
 };
 extern const struct eink EInk;
