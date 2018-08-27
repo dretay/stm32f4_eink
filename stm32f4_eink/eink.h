@@ -17,9 +17,13 @@
 #include "union.pb.h"
 #include "math.h"
 
+extern RTC_HandleTypeDef hrtc;
+
+#define MIN(x, y) (((x) < (y)) ? (x) : (y))
+
 struct eink
 {
 	void(*init)();
-	void(*draw)(Time*,Meeting*,int);
+	void(*draw)(Meeting*,int,Todo*,int,Weather*,int);
 };
 extern const struct eink EInk;
