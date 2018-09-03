@@ -53,8 +53,6 @@ int todos_cnt = 0;
 Weather weathers[MAX_WEATHERS];
 int weathers_cnt = 0;
 
-volatile bool pause_rendering = false;
-volatile bool render_screen = false;
 #define HEADER_LENGTH 4
 //not sure this is legit...
 void reset_rx_buffer()
@@ -64,12 +62,7 @@ void reset_rx_buffer()
 void wait_for_rx()
 {
 	while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY)
-	{
-		if (render_screen && !pause_rendering)
-		{
-			EInk.draw(meetings, meetings_cnt, todos, todos_cnt, weathers, weathers_cnt);			
-			render_screen = false;
-		}
+	{		
 	} 	
 }
 void rx_message(int expected_msg_length)
@@ -100,7 +93,6 @@ void rx_message(int expected_msg_length)
 			}
 			else if (status.status == RetrivalStatus_StatusType_FLUSH)
 			{
-				pause_rendering = false;
 				EInk.draw(meetings, meetings_cnt, todos, todos_cnt, weathers, weathers_cnt);		
 			}
 		}
@@ -226,8 +218,7 @@ void run(void)
 		{
 			Header header;
 			if (decode_unionmessage_contents(&stream, Header_fields, &header))
-			{
-				pause_rendering = true;
+			{				
 				rx_message(header.length);
 			}
 			else
@@ -242,8 +233,8 @@ int wake_counter = 0;
 void HAL_RTCEx_WakeUpTimerEventCallback(RTC_HandleTypeDef *hrtc)
 {
 	if (wake_counter % 2 == 0)
-	{
-		render_screen = true;
+	{		
+		//todo: someday this will be where the rpi gets woken up
 	}
 	wake_counter++;
 }

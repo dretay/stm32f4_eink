@@ -11,7 +11,7 @@ static void render_date_header()
 	HAL_RTC_GetTime(&hrtc, &stimestructureget, RTC_FORMAT_BIN);	
 	HAL_RTC_GetDate(&hrtc, &sdatestructureget, RTC_FORMAT_BIN);
 
-	char weekday_map[][10] = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
+	char weekday_map[][10] = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
 	
 	char *day_of_week = weekday_map[sdatestructureget.WeekDay];
 	font_t day_of_week_font = DejaVuSans32;
@@ -28,7 +28,7 @@ static void render_date_header()
 		justifyCenter);
 	
 	char time_of_day[9];
-	sprintf(time_of_day, "%2d:%2d", stimestructureget.Hours, stimestructureget.Minutes);
+	sprintf(time_of_day, "%02d:%02d", stimestructureget.Hours, stimestructureget.Minutes);
 	font_t time_of_day_font = DejaVuSans20;
 	coord_t time_of_day_width = gdispGetStringWidth(time_of_day, time_of_day_font) + 1;
 	coord_t time_of_day_height = gdispGetFontMetric(time_of_day_font, fontHeight) + 1;
@@ -70,7 +70,7 @@ static void render_container(coord_t x, coord_t y, coord_t height, char* header)
 	font_t header_font = DejaVuSans12Bold;
 	coord_t header_width = gdispGetStringWidth(header, header_font) + 1;
 	coord_t header_height_offset = 10;
-	coord_t header_height = gdispGetFontMetric(header_font, fontHeight) + 1;
+	coord_t header_height = gdispGetFontMetric(header_font, fontHeight) + 2;
 
 
 	gdispDrawBox(x, y + header_height_offset, DisplayWidth, height - y, Black);
@@ -92,6 +92,35 @@ static void render_container(coord_t x, coord_t y, coord_t height, char* header)
 		White, 
 		justifyCenter);
 }
+static time_t get_epoch()
+{
+/* Code to get timestamp 
+*
+*  You must call HAL_RTC_GetDate() after HAL_RTC_GetTime() to unlock the values 
+*  in the higher-order calendar shadow registers to ensure consistency between the time and date values.
+*  Reading RTC current time locks the values in calendar shadow registers until Current date is read
+*  to ensure consistency between the time and date values.
+*/
+
+	
+	RTC_TimeTypeDef currentTime;
+	RTC_DateTypeDef currentDate;
+	time_t timestamp;
+	struct tm currTime;
+
+	HAL_RTC_GetTime(&hrtc, &currentTime, RTC_FORMAT_BIN);
+	HAL_RTC_GetDate(&hrtc, &currentDate, RTC_FORMAT_BIN);
+
+	currTime.tm_year = currentDate.Year + 100;   // In fact: 2000 + 18 - 1900
+	currTime.tm_mday = currentDate.Date;
+	currTime.tm_mon  = currentDate.Month - 1;
+
+	currTime.tm_hour = currentTime.Hours;
+	currTime.tm_min  = currentTime.Minutes;
+	currTime.tm_sec  = currentTime.Seconds;
+
+	return mktime(&currTime);
+}
 static void render_next_meetings(Meeting *meetings, int meeting_count)
 {
 	coord_t cell_spacing = 0;
@@ -100,13 +129,15 @@ static void render_next_meetings(Meeting *meetings, int meeting_count)
 
 	int meetings_to_display = 6;
 	int start = 0;
-//	for (start = 0; start < meeting_count; start++)
-//	{
-//		if (!(time->localtime > meetings[start].start))
-//		{
-//			break;
-//		}
-//	}
+	time_t now_epoch =  get_epoch();
+
+	for (start = 0; start < meeting_count; start++)
+	{
+		if (!(now_epoch > meetings[start].start))
+		{
+			break;
+		}
+	}
 	
 	for (int i = start; i < MIN(start + meetings_to_display, meeting_count); i++)
 	{
@@ -221,6 +252,16 @@ static void render_weather(Weather *weathers, int weather_cnt)
 		"snow.bmp",
 		"storm.bmp"
 	};	
+	time_t now_epoch =  get_epoch();
+
+	for (start = 0; start < weather_cnt; start++)
+	{
+		if (!(now_epoch > weathers[start].start))
+		{
+			break;
+		}
+	}
+
 
 	for(int i = start ; i < MIN(start + weathers_to_display, weather_cnt) ; i++)
 	{
@@ -229,7 +270,6 @@ static void render_weather(Weather *weathers, int weather_cnt)
 		gdispImageDraw(&weather_img, (i * weather_spacing) + weather_offset, DateHeaderHeight + weather_height_offset, weather_img_width, weather_img_height, 0, 0);
 		gdispImageClose(&weather_img);
 		
-		sprintf(weathers[i].human_start, "%dam", (i + 7));
 		font_t weather_time_font = DejaVuSans12Bold;
 		coord_t weather_time_width = gdispGetStringWidth(weathers[i].human_start, weather_time_font) + 1;
 		coord_t weather_time_height = gdispGetFontMetric(weather_time_font, fontHeight) + 1;

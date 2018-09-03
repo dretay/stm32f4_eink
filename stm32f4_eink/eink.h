@@ -16,6 +16,7 @@
 #include <string.h>
 #include "union.pb.h"
 #include "math.h"
+#include "time.h"
 
 extern RTC_HandleTypeDef hrtc;
 
