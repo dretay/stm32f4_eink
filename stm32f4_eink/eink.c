@@ -28,7 +28,7 @@ static void render_date_header()
 		justifyCenter);
 	
 	char time_of_day[9];
-	sprintf(time_of_day, "%02d:%02d", stimestructureget.Hours, stimestructureget.Minutes);
+	sprintf(time_of_day, "%d", sdatestructureget.Year+2000);
 	font_t time_of_day_font = DejaVuSans20;
 	coord_t time_of_day_width = gdispGetStringWidth(time_of_day, time_of_day_font) + 1;
 	coord_t time_of_day_height = gdispGetFontMetric(time_of_day_font, fontHeight) + 1;
