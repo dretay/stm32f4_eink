@@ -125,7 +125,7 @@ static void render_next_meetings(Meeting *meetings, int meeting_count)
 {
 	coord_t cell_spacing = 0;
 	coord_t meetings_offset = 20;
-	coord_t meetings_starting_offset = 123;
+	coord_t meetings_starting_offset = 133;
 
 	int meetings_to_display = 6;
 	int start = 0;
@@ -196,14 +196,14 @@ static void render_next_meetings(Meeting *meetings, int meeting_count)
 		MeetingsHeight += cell_spacing;
 	}	
 	static const char header[12] = "Meetings";
-	render_container(0, meetings_starting_offset + meetings_offset, 439, &header);
+	render_container(0, meetings_starting_offset + meetings_offset, 449, &header);
 }
 static void render_todo(Todo *todos, int todo_count)
 {
-	coord_t todo_offset = 459;
+	coord_t todo_offset = 469;
 	coord_t TodoHeight = 0;
 	coord_t offset = 10;
-	int todos_to_display = 6;
+	int todos_to_display = 5;
 	
 	for (int i = 0; i < MIN(todo_count, todos_to_display); i++)	
 	{
@@ -265,30 +265,47 @@ static void render_weather(Weather *weathers, int weather_cnt)
 
 	for(int i = start ; i < MIN(start + weathers_to_display, weather_cnt) ; i++)
 	{
+		font_t weather_temp_font = DejaVuSans12Bold;
+		coord_t weather_temp_width = gdispGetStringWidth(weathers[i].human_start, weather_temp_font) + 1;
+		coord_t weather_temp_height = gdispGetFontMetric(weather_temp_font, fontHeight) + 1;
+		coord_t weather_temp_offset = weather_img_width / 2;
+		gdispDrawStringBox(
+			((i * weather_spacing) + weather_offset) - (strlen(weathers[i].human_start) == 3 ? 7 : 15) +(weather_temp_width / 2), 
+			DateHeaderHeight+weather_height_offset, 
+			weather_temp_width, 
+			weather_temp_height, 
+			weathers[i].human_start, 
+			weather_temp_font, 
+			Black, 
+			justifyCenter);
+
 		gdispImage weather_img;
 		gdispImageOpenFile(&weather_img,weather_icon_map[weathers[i].type]);
-		gdispImageDraw(&weather_img, (i * weather_spacing) + weather_offset, DateHeaderHeight + weather_height_offset, weather_img_width, weather_img_height, 0, 0);
+		gdispImageDraw(&weather_img, (i * weather_spacing) + weather_offset, DateHeaderHeight + weather_temp_height+ weather_height_offset, weather_img_width, weather_img_height, 0, 0);
 		gdispImageClose(&weather_img);
 		
-		font_t weather_time_font = DejaVuSans12Bold;
-		coord_t weather_time_width = gdispGetStringWidth(weathers[i].human_start, weather_time_font) + 1;
+		char temperature_str[4];
+		sprintf(temperature_str, "%ld", weathers[i].temperature);
+		font_t weather_time_font = DejaVuSans12;
+		coord_t weather_time_width = gdispGetStringWidth(temperature_str, weather_time_font) + 1;
 		coord_t weather_time_height = gdispGetFontMetric(weather_time_font, fontHeight) + 1;
 		coord_t weather_time_offset = weather_img_width / 2;
 		gdispDrawStringBox(
-			((i * weather_spacing) + weather_offset) - (strlen(weathers[i].human_start) == 3 ? 7 : 15) +(weather_time_width / 2), 
-			DateHeaderHeight+weather_img_height+25, 
+			((i * weather_spacing) + weather_offset)  +(weather_time_width / 2), 
+			DateHeaderHeight+weather_temp_height+weather_img_height+25, 
 			weather_time_width, 
 			weather_time_height, 
-			weathers[i].human_start, 
+			temperature_str, 
 			weather_time_font, 
 			Black, 
 			justifyCenter);
+		gdispDrawCircle(((i * weather_spacing) + weather_offset)  + (weather_time_width / 2) + weather_time_width+3, DateHeaderHeight + weather_temp_height + weather_img_height + 28, 2, Black);
 		
 		WeatherHeaderHeight = DateHeaderHeight + weather_img_height + weather_time_height;
 	}
 	WeatherHeaderHeight += 10;
 	static const char header[12] = "Weather";
-	render_container(0, DateHeaderHeight, 123, &header);
+	render_container(0, DateHeaderHeight, 133, &header);
 }
 static void init()
 {

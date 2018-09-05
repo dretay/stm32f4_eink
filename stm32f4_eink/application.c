@@ -198,7 +198,7 @@ void rx_message(int expected_msg_length)
 void run(void)
 {
 
-	EInk.init();
+	EInk.init();	
 	while (true)
 	{
 		//this doesn't really need dma sice we're not doing anything while we wait
