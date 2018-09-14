@@ -93,7 +93,7 @@ void rx_message(int expected_msg_length)
 			}
 			else if (status.status == RetrivalStatus_StatusType_FLUSH)
 			{
-				EInk.draw(meetings, meetings_cnt, todos, todos_cnt, weathers, weathers_cnt);		
+				CalendarView.draw(meetings, meetings_cnt, todos, todos_cnt, weathers, weathers_cnt);		
 			}
 		}
 		else
@@ -198,7 +198,7 @@ void rx_message(int expected_msg_length)
 void run(void)
 {
 
-	EInk.init();	
+	CalendarView.init();	
 	while (true)
 	{
 		//this doesn't really need dma sice we're not doing anything while we wait

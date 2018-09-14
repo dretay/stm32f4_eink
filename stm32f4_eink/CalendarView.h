@@ -17,14 +17,15 @@
 #include "union.pb.h"
 #include "math.h"
 #include "time.h"
+#include "datehelper.h"
 
 extern RTC_HandleTypeDef hrtc;
 
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
 
-struct eink
+struct calendarview
 {
 	void(*init)();
 	void(*draw)(Meeting*,int,Todo*,int,Weather*,int);
 };
-extern const struct eink EInk;
+extern const struct calendarview CalendarView;

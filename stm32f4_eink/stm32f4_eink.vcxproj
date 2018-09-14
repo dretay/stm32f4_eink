@@ -71,7 +71,8 @@
     <ClCompile Include="..\Src\stm32f4xx_it.c" />
     <ClCompile Include="..\Src\system_stm32f4xx.c" />
     <ClCompile Include="application.c" />
-    <ClCompile Include="eink.c" />
+    <ClCompile Include="datehelper.c" />
+    <ClCompile Include="CalendarView.c" />
     <ClCompile Include="union.pb.c" />
     <ClInclude Include="..\..\nanopb-0.3.9-windows-x86\pb.h" />
     <ClInclude Include="..\..\nanopb-0.3.9-windows-x86\pb_common.h" />
@@ -83,8 +84,9 @@
     <ClInclude Include="..\Inc\stm32f4xx_hal_conf.h" />
     <ClInclude Include="..\Inc\stm32f4xx_it.h" />
     <ClInclude Include="bithelper.h" />
+    <ClInclude Include="datehelper.h" />
     <ClInclude Include="dwt_stm32_delay.h" />
-    <ClInclude Include="eink.h" />
+    <ClInclude Include="CalendarView.h" />
     <ClInclude Include="gfxconf.h" />
     <ClInclude Include="romfs_files.h" />
     <ClInclude Include="union.pb.h" />
