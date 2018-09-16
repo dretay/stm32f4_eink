@@ -12,3 +12,6 @@
 #include "img/sleet.h"
 #include "img/snow.h"
 #include "img/storm.h"
+#include "img/info_160.h"
+#include "img/error_160.h"
+#include "img/battery_160.h"

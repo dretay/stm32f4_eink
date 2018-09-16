@@ -49,6 +49,12 @@
     <Filter Include="Source files\util">
       <UniqueIdentifier>{95cb1f57-c100-4376-8977-e2f47040d3b5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source files\views">
+      <UniqueIdentifier>{d239c5fb-4f63-4180-b13e-09d266f402fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\views">
+      <UniqueIdentifier>{ba2618bf-618d-49c2-9843-33a25e777062}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="stm32.props">
@@ -729,7 +735,22 @@
       <Filter>Header files\util</Filter>
     </ClInclude>
     <ClInclude Include="CalendarView.h">
+      <Filter>Header files\views</Filter>
+    </ClInclude>
+    <ClInclude Include="StatusView.h">
+      <Filter>Header files\views</Filter>
+    </ClInclude>
+    <ClInclude Include="View.h">
+      <Filter>Header files\views</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemState.h">
       <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="ProtoIngestor.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="BatteryView.h">
+      <Filter>Header files\views</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -761,7 +782,19 @@
       <Filter>Source files\util</Filter>
     </ClCompile>
     <ClCompile Include="CalendarView.c">
+      <Filter>Source files\views</Filter>
+    </ClCompile>
+    <ClCompile Include="StatusView.c">
+      <Filter>Source files\views</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemState.c">
       <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="ProtoIngestor.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="BatteryView.c">
+      <Filter>Source files\views</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

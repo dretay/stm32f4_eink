@@ -1,5 +1,7 @@
 #include "CalendarView.h"
 
+static View view;
+
 static font_t DejaVuSans10, DejaVuSans12, DejaVuSans12Bold, DejaVuSans16, DejaVuSans20, DejaVuSans24, DejaVuSans32, Fixed_5x8, Fixed_7x14;
 static coord_t DisplayWidth, DisplayHeight, DisplayWidthMidpoint, DisplayHeightMidpoint, DateHeaderHeight, WeatherHeaderHeight, MeetingsHeight;
 
@@ -277,9 +279,21 @@ static void render_todo(Todo *todos, int todo_count)
 
 }
 
-static void init()
+static void render()
 {
-	gfxInit();
+	gdispClear(White);
+	render_date_header();
+	
+	render_weather(SystemState.weathers, *SystemState.weathers_cnt);
+	render_next_meetings(SystemState.meetings, *SystemState.meetings_cnt);
+	render_todo(SystemState.todos, *SystemState.todos_cnt);
+
+	gdispGFlush(gdispGetDisplay(0));	
+}
+
+static View* init()
+{
+	view.render = render;
 	DejaVuSans10 =  gdispOpenFont("DejaVuSans10");
 	DejaVuSans12 =  gdispOpenFont("DejaVuSans12");
 	DejaVuSans12Bold =  gdispOpenFont("DejaVuSansBold12");
@@ -296,20 +310,11 @@ static void init()
 	DisplayWidthMidpoint = DisplayWidth / 2;
 	DisplayHeight = gdispGetHeight();
 	DisplayHeightMidpoint = DisplayHeight / 2;
+	return &view;
 }
-static void draw(Meeting *meetings, int meeting_count, Todo *todos, int todo_cnt, Weather *weathers, int weather_cnt)
-{
-	gdispClear(White);
-	render_date_header();
-	render_weather(weathers, weather_cnt);
-	render_next_meetings(meetings,meeting_count);
-	render_todo(todos,todo_cnt);
 
-	gdispGFlush(gdispGetDisplay(0));	
-}
 const struct calendarview CalendarView= { 
 	.init = init,
-	.draw = draw,
 };
 	
 	
