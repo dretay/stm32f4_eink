@@ -39,14 +39,7 @@ static bool decode_unionmessage_contents(pb_istream_t *stream, const pb_field_t 
 	return status;
 }
 
-
-#define HEADER_LENGTH 4
-static int expected_msg_length = HEADER_LENGTH;
-#define MAX_I2C_MSG 31
-#define MAX_I2C_BUFFER 128
-pb_byte_t aRxBuffer[MAX_I2C_BUFFER];
-
-static const pb_field_t* process(void)
+static bool process(ProcessedMessage *response, unsigned  char *aRxBuffer, int expected_msg_length)
 {
 	pb_istream_t stream = pb_istream_from_buffer(aRxBuffer, expected_msg_length);
 	const pb_field_t *type = decode_unionmessage_type(&stream);
@@ -56,7 +49,9 @@ static const pb_field_t* process(void)
 		Header header;
 		if (decode_unionmessage_contents(&stream, Header_fields, &header))
 		{				
-			expected_msg_length = header.length;
+			memcpy(&response->header, &header, sizeof(Header));
+			response->type = T_Header;
+			return true;
 		}
 		else
 		{
@@ -65,14 +60,12 @@ static const pb_field_t* process(void)
 	}
 	else if (type == RetrivalStatus_fields)
 	{
-		RetrivalStatus status;
-		if (decode_unionmessage_contents(&stream, RetrivalStatus_fields, &status))
+		RetrivalStatus retrival_status;
+		if (decode_unionmessage_contents(&stream, RetrivalStatus_fields, &retrival_status))
 		{				
-			SystemState.set_status(&status);
-			if(status.status == RetrivalStatus_StatusType_FLUSH)
-			{
-				expected_msg_length = HEADER_LENGTH;
-			}
+			memcpy(&response->retrival_status, &retrival_status, sizeof(RetrivalStatus));
+			response->type = T_RetrivalStatus;
+			return true;
 		}
 		else
 		{
@@ -85,7 +78,9 @@ static const pb_field_t* process(void)
 		Weather weather;
 		if (decode_unionmessage_contents(&stream, Weather_fields, &weather))
 		{				
-			SystemState.add_weather(&weather);			
+			memcpy(&response->weather, &weather, sizeof(Weather));
+			response->type = T_Weather;
+			return true;
 		}
 		else
 		{
@@ -97,7 +92,9 @@ static const pb_field_t* process(void)
 		Meeting meeting;
 		if (decode_unionmessage_contents(&stream, Meeting_fields, &meeting))
 		{			
-			SystemState.add_meeting(&meeting);
+			memcpy(&response->meeting, &meeting, sizeof(Meeting));
+			response->type = T_Meeting;
+			return true;
 		}
 		else
 		{
@@ -109,7 +106,9 @@ static const pb_field_t* process(void)
 		Todo todo;
 		if (decode_unionmessage_contents(&stream, Todo_fields, &todo))
 		{
-			SystemState.add_todo(&todo);
+			memcpy(&response->todo, &todo, sizeof(Todo));
+			response->type = T_Todo;
+			return true;
 		}
 		else
 		{
@@ -121,7 +120,9 @@ static const pb_field_t* process(void)
 		Time time;
 		if (decode_unionmessage_contents(&stream, Time_fields, &time))
 		{	
-			SystemState.set_time(&time);
+			memcpy(&response->time, &time, sizeof(Time));
+			response->type = T_Time;
+			return true;
 		}
 		else
 		{
@@ -132,34 +133,12 @@ static const pb_field_t* process(void)
 	{
 		//this can happen if we've decided to chunk xmit.. should probably have some 
 		//better handling around this... maybe do something special if we overflow
+		return false;
 	}	
-	return type;
+	return false;
 }
 
-
-static void reset_rx_buffer()
-{
-	HAL_DMA_Abort(&hdma_i2c1_rx);		
-}
-static void wait_for_rx()
-{
-	while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY)
-	{		
-	} 	
-}
-static const pb_field_t* next(void)
-{	
-	if (HAL_I2C_Slave_Receive_DMA(&hi2c1, aRxBuffer, expected_msg_length) != HAL_OK)
-	{
-		/* Transfer error in reception process */
-		Error_Handler();        
-	}
-	wait_for_rx();
-	reset_rx_buffer();
-	return process();
-	
-}
 
 const struct protoingestor ProtoIngestor = {
-	.next = next,
+	.process = process,
 };

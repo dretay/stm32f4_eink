@@ -55,6 +55,24 @@
     <Filter Include="Header files\views">
       <UniqueIdentifier>{ba2618bf-618d-49c2-9843-33a25e777062}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source files\Device-specific files\FreeRTOS">
+      <UniqueIdentifier>{d699383a-92d4-4b77-8449-12ec902f1a02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\Device-specific files\FreeRTOS">
+      <UniqueIdentifier>{1c4545bd-12ec-4e50-998d-f1941b8d73f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\hal">
+      <UniqueIdentifier>{044005eb-8b3c-4f08-bcc8-9221525653d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\hal">
+      <UniqueIdentifier>{41072bf2-9e42-4610-afad-f2ab6f23a011}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\tasks">
+      <UniqueIdentifier>{141dcad7-0bad-45e0-b881-dd5c998efe71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\tasks">
+      <UniqueIdentifier>{0b644621-4aa6-4d06-929f-ae65a331d445}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="stm32.props">
@@ -672,27 +690,102 @@
     <ClCompile Include="application.c">
       <Filter>Source files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\stm32f4xx_it.c">
-      <Filter>Source files</Filter>
-    </ClCompile>
     <None Include="union.options">
       <Filter>Source files\nanopb</Filter>
     </None>
     <None Include="union.proto">
       <Filter>Source files\nanopb</Filter>
     </None>
+    <None Include="$(BSP_ROOT)\FreeRTOS\License\license.txt">
+      <Filter>Source files\Device-specific files\FreeRTOS</Filter>
+    </None>
+    <ClCompile Include="$(BSP_ROOT)\FreeRTOS\Source\croutine.c">
+      <Filter>Source files\Device-specific files\FreeRTOS</Filter>
+    </ClCompile>
+    <ClCompile Include="$(BSP_ROOT)\FreeRTOS\Source\event_groups.c">
+      <Filter>Source files\Device-specific files\FreeRTOS</Filter>
+    </ClCompile>
+    <ClCompile Include="$(BSP_ROOT)\FreeRTOS\Source\list.c">
+      <Filter>Source files\Device-specific files\FreeRTOS</Filter>
+    </ClCompile>
+    <ClCompile Include="$(BSP_ROOT)\FreeRTOS\Source\queue.c">
+      <Filter>Source files\Device-specific files\FreeRTOS</Filter>
+    </ClCompile>
+    <None Include="$(BSP_ROOT)\FreeRTOS\Source\readme.txt">
+      <Filter>Source files\Device-specific files\FreeRTOS</Filter>
+    </None>
+    <None Include="$(BSP_ROOT)\FreeRTOS\Source\st_readme.txt">
+      <Filter>Source files\Device-specific files\FreeRTOS</Filter>
+    </None>
+    <ClCompile Include="$(BSP_ROOT)\FreeRTOS\Source\tasks.c">
+      <Filter>Source files\Device-specific files\FreeRTOS</Filter>
+    </ClCompile>
+    <ClCompile Include="$(BSP_ROOT)\FreeRTOS\Source\timers.c">
+      <Filter>Source files\Device-specific files\FreeRTOS</Filter>
+    </ClCompile>
+    <ClCompile Include="$(BSP_ROOT)\FreeRTOS\Source\CMSIS_RTOS\cmsis_os.c">
+      <Filter>Source files\Device-specific files\FreeRTOS</Filter>
+    </ClCompile>
+    <ClCompile Include="$(BSP_ROOT)\FreeRTOS\Source\portable\GCC\ARM_CM3\port.c">
+      <Filter>Source files\Device-specific files\FreeRTOS</Filter>
+    </ClCompile>
+    <ClInclude Include="$(BSP_ROOT)\FreeRTOS\Source\CMSIS_RTOS\cmsis_os.h">
+      <Filter>Header files\Device-specific files\FreeRTOS</Filter>
+    </ClInclude>
+    <ClInclude Include="$(BSP_ROOT)\FreeRTOS\Source\include\croutine.h">
+      <Filter>Header files\Device-specific files\FreeRTOS</Filter>
+    </ClInclude>
+    <ClInclude Include="$(BSP_ROOT)\FreeRTOS\Source\include\deprecated_definitions.h">
+      <Filter>Header files\Device-specific files\FreeRTOS</Filter>
+    </ClInclude>
+    <ClInclude Include="$(BSP_ROOT)\FreeRTOS\Source\include\event_groups.h">
+      <Filter>Header files\Device-specific files\FreeRTOS</Filter>
+    </ClInclude>
+    <ClInclude Include="$(BSP_ROOT)\FreeRTOS\Source\include\FreeRTOS.h">
+      <Filter>Header files\Device-specific files\FreeRTOS</Filter>
+    </ClInclude>
+    <ClInclude Include="$(BSP_ROOT)\FreeRTOS\Source\include\list.h">
+      <Filter>Header files\Device-specific files\FreeRTOS</Filter>
+    </ClInclude>
+    <ClInclude Include="$(BSP_ROOT)\FreeRTOS\Source\include\mpu_prototypes.h">
+      <Filter>Header files\Device-specific files\FreeRTOS</Filter>
+    </ClInclude>
+    <ClInclude Include="$(BSP_ROOT)\FreeRTOS\Source\include\mpu_wrappers.h">
+      <Filter>Header files\Device-specific files\FreeRTOS</Filter>
+    </ClInclude>
+    <ClInclude Include="$(BSP_ROOT)\FreeRTOS\Source\include\portable.h">
+      <Filter>Header files\Device-specific files\FreeRTOS</Filter>
+    </ClInclude>
+    <ClInclude Include="$(BSP_ROOT)\FreeRTOS\Source\include\projdefs.h">
+      <Filter>Header files\Device-specific files\FreeRTOS</Filter>
+    </ClInclude>
+    <ClInclude Include="$(BSP_ROOT)\FreeRTOS\Source\include\queue.h">
+      <Filter>Header files\Device-specific files\FreeRTOS</Filter>
+    </ClInclude>
+    <ClInclude Include="$(BSP_ROOT)\FreeRTOS\Source\include\semphr.h">
+      <Filter>Header files\Device-specific files\FreeRTOS</Filter>
+    </ClInclude>
+    <ClInclude Include="$(BSP_ROOT)\FreeRTOS\Source\include\StackMacros.h">
+      <Filter>Header files\Device-specific files\FreeRTOS</Filter>
+    </ClInclude>
+    <ClInclude Include="$(BSP_ROOT)\FreeRTOS\Source\include\task.h">
+      <Filter>Header files\Device-specific files\FreeRTOS</Filter>
+    </ClInclude>
+    <ClInclude Include="$(BSP_ROOT)\FreeRTOS\Source\include\timers.h">
+      <Filter>Header files\Device-specific files\FreeRTOS</Filter>
+    </ClInclude>
+    <ClInclude Include="$(BSP_ROOT)\FreeRTOS\Source\portable\GCC\ARM_CM3\portmacro.h">
+      <Filter>Header files\Device-specific files\FreeRTOS</Filter>
+    </ClInclude>
+    <ClCompile Include="$(BSP_ROOT)\FreeRTOS\Source\portable\MemMang\heap_2.c">
+      <Filter>Source files\Device-specific files\FreeRTOS</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Inc\main.h">
       <Filter>Header files</Filter>
     </ClInclude>
     <ClInclude Include="application.h">
-      <Filter>Header files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Inc\stm32f4xx_it.h">
-      <Filter>Header files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Inc\stm32f4xx_hal_conf.h">
       <Filter>Header files</Filter>
     </ClInclude>
     <ClInclude Include="gfxconf.h">
@@ -752,14 +845,26 @@
     <ClInclude Include="BatteryView.h">
       <Filter>Header files\views</Filter>
     </ClInclude>
+    <ClInclude Include="..\Inc\stm32f4xx_hal_conf.h">
+      <Filter>Header files\hal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Inc\stm32f4xx_it.h">
+      <Filter>Header files\hal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Inc\FreeRTOSConfig.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawTask.h">
+      <Filter>Header files\tasks</Filter>
+    </ClInclude>
+    <ClInclude Include="SerialCmdTask.h">
+      <Filter>Header files\tasks</Filter>
+    </ClInclude>
+    <ClInclude Include="I2CSerialCommandAdapter.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Src\system_stm32f4xx.c">
-      <Filter>Source files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src\stm32f4xx_hal_msp.c">
-      <Filter>Source files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\ugfx\src\gfx_mk.c">
       <Filter>Source files\ugfx</Filter>
     </ClCompile>
@@ -795,6 +900,27 @@
     </ClCompile>
     <ClCompile Include="BatteryView.c">
       <Filter>Source files\views</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\stm32f4xx_hal_msp.c">
+      <Filter>Source files\hal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\stm32f4xx_it.c">
+      <Filter>Source files\hal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\system_stm32f4xx.c">
+      <Filter>Source files\hal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\stm32f4xx_hal_timebase_TIM.c">
+      <Filter>Source files\hal</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawTask.c">
+      <Filter>Source files\tasks</Filter>
+    </ClCompile>
+    <ClCompile Include="SerialCmdTask.c">
+      <Filter>Source files\tasks</Filter>
+    </ClCompile>
+    <ClCompile Include="I2CSerialCommandAdapter.c">
+      <Filter>Source files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

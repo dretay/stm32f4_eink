@@ -17,8 +17,19 @@
     <FavoriteEmbeddedRegisters />
     <LiveVariables>
       <LiveVariable>
-        <Expression>wake_counter</Expression>
-        <Type>SInt32</Type>
+        <Expression>DrawTask_Watermark</Expression>
+        <Type>UInt32</Type>
+        <Enabled>true</Enabled>
+        <Breakpoint>
+          <ComparisonMode>Equals</ComparisonMode>
+          <Enabled>false</Enabled>
+        </Breakpoint>
+        <Plot>false</Plot>
+        <IsCollapsed>false</IsCollapsed>
+      </LiveVariable>
+      <LiveVariable>
+        <Expression>SerialCmdTask_Watermark</Expression>
+        <Type>UInt32</Type>
         <Enabled>true</Enabled>
         <Breakpoint>
           <ComparisonMode>Equals</ComparisonMode>

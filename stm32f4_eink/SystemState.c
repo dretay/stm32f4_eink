@@ -92,7 +92,7 @@ static bool set_time(Time *time)
 	return true;
 }
 
-const struct systemstate SystemState = { 
+volatile const struct systemstate SystemState = { 
 	.meetings = meetings,
 	.todos = todos,
 	.weathers = weathers,

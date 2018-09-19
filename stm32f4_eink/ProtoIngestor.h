@@ -6,13 +6,23 @@
 #include "union.pb.h"
 #include "SystemState.h"
 
-extern I2C_HandleTypeDef hi2c1;
-extern DMA_HandleTypeDef hdma_i2c1_rx;
-
+typedef struct
+{
+	enum { T_Header, T_RetrivalStatus, T_Weather, T_Meeting, T_Todo, T_Time } type;
+	union
+	{
+		Header header;
+		RetrivalStatus retrival_status;
+		Weather weather;
+		Meeting meeting;
+		Todo todo;
+		Time time;
+	};
+}ProcessedMessage;
 
 struct protoingestor
 {
-	const pb_field_t*(*next)();
+	bool(*process)(ProcessedMessage *response, unsigned  char *aRxBuffer, int expected_msg_length);
 };
 
 extern const struct protoingestor ProtoIngestor;

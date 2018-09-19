@@ -7,7 +7,7 @@ static coord_t DisplayWidth, DisplayHeight, DisplayWidthMidpoint, DisplayHeightM
 
 static void render()
 {
-	gdispClear(White);
+	gdispGClear(gdispGetDisplay(0), White);
 	
 	char* msg;
 	if (SystemState.status->has_message)

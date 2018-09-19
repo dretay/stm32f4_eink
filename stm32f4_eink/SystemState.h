@@ -26,4 +26,4 @@ struct systemstate
 	bool(*set_status)(RetrivalStatus *status_in);
 };
 
-extern const struct systemstate SystemState;
+extern volatile const struct systemstate SystemState;

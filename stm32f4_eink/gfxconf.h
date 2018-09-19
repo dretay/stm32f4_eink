@@ -27,7 +27,7 @@
 // GOS - One of these must be defined, preferably in your Makefile       //
 ///////////////////////////////////////////////////////////////////////////
 //#define GFX_USE_OS_CHIBIOS                           FALSE
-//#define GFX_USE_OS_FREERTOS                          FALSE
+#define GFX_USE_OS_FREERTOS                          TRUE
 //    #define GFX_FREERTOS_USE_TRACE                   FALSE
 //#define GFX_USE_OS_WIN32                             FALSE
 //#define GFX_USE_OS_LINUX                             FALSE
@@ -37,7 +37,7 @@
 //#define GFX_USE_OS_ARDUINO                           FALSE
 //#define GFX_USE_OS_KEIL                              FALSE
 //#define GFX_USE_OS_CMSIS                             TRUE
-#define GFX_USE_OS_RAW32                             TRUE
+//#define GFX_USE_OS_RAW32                             FALSE
 //#define GFX_USE_OS_NIOS                              FALSE
 //#define GFX_USE_OS_QT                                FALSE
 //    #define INTERRUPTS_OFF()                         optional_code
