@@ -6,6 +6,7 @@ static View *battery_view;
 
 void StartDrawTask(void const * argument) {	
 	uint32_t ulNotifiedValue;
+	gfxInit();
 	calendar_view = CalendarView.init();	
 	status_view = StatusView.init();	
 	battery_view = BatteryView.init();	
@@ -17,15 +18,15 @@ void StartDrawTask(void const * argument) {
 #endif
 
 		xTaskNotifyWait(pdFALSE, ULONG_MAX, &ulNotifiedValue, osWaitForever);
-		if ((ulNotifiedValue & 0x00) != 0)
+		if (ulNotifiedValue == 0)
 		{
 			calendar_view->render();			
 		}
-		else if ((ulNotifiedValue & 0x01) != 0)
+		else if (ulNotifiedValue == 1)
 		{
 			status_view->render();			
 		}
-		else if ((ulNotifiedValue & 0x02) != 0)
+		else if (ulNotifiedValue == 2)
 		{
 			battery_view->render();			
 		}

@@ -156,7 +156,7 @@ int main(void)
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* definition and creation of drawTask */
-  osThreadDef(drawTask, StartDrawTask, osPriorityIdle, 0, 3000);
+  osThreadDef(drawTask, StartDrawTask, osPriorityIdle, 0, 300);
   drawTaskHandle = osThreadCreate(osThread(drawTask), NULL);
 
   /* definition and creation of serialCmdTask */
