@@ -68,10 +68,12 @@ UART_HandleTypeDef huart1;
 osThreadId defaultTaskHandle;
 osThreadId drawTaskHandle;
 osThreadId serialCmdTaskHandle;
+osMutexId I2CSerialCommandMuxHandle;
+osMutexId SPIDisplayMixHandle;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-
+volatile int next_msg_length;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -138,6 +140,15 @@ int main(void)
 
   /* USER CODE END 2 */
 
+  /* Create the mutex(es) */
+  /* definition and creation of I2CSerialCommandMux */
+  osMutexDef(I2CSerialCommandMux);
+  I2CSerialCommandMuxHandle = osMutexCreate(osMutex(I2CSerialCommandMux));
+
+  /* definition and creation of SPIDisplayMix */
+  osMutexDef(SPIDisplayMix);
+  SPIDisplayMixHandle = osMutexCreate(osMutex(SPIDisplayMix));
+
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
@@ -152,15 +163,15 @@ int main(void)
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
+  osThreadDef(defaultTask, StartDefaultTask, osPriorityIdle, 0, 128);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* definition and creation of drawTask */
-  osThreadDef(drawTask, StartDrawTask, osPriorityIdle, 0, 300);
+  osThreadDef(drawTask, StartDrawTask, osPriorityIdle, 0, 1000);
   drawTaskHandle = osThreadCreate(osThread(drawTask), NULL);
 
   /* definition and creation of serialCmdTask */
-  osThreadDef(serialCmdTask, StartSerialCmdTask, osPriorityIdle, 0, 300);
+  osThreadDef(serialCmdTask, StartSerialCmdTask, osPriorityNormal, 0, 1000);
   serialCmdTaskHandle = osThreadCreate(osThread(serialCmdTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */

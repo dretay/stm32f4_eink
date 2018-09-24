@@ -73,6 +73,12 @@
     <Filter Include="Header files\tasks">
       <UniqueIdentifier>{0b644621-4aa6-4d06-929f-ae65a331d445}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source files\periph">
+      <UniqueIdentifier>{62b53560-73c1-4b24-b748-ebedeb0e2f4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\periph">
+      <UniqueIdentifier>{d0271da9-1859-450f-af0a-3e1f8f60df55}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="stm32.props">
@@ -861,7 +867,7 @@
       <Filter>Header files\tasks</Filter>
     </ClInclude>
     <ClInclude Include="I2CSerialCommandAdapter.h">
-      <Filter>Header files</Filter>
+      <Filter>Header files\periph</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -920,7 +926,7 @@
       <Filter>Source files\tasks</Filter>
     </ClCompile>
     <ClCompile Include="I2CSerialCommandAdapter.c">
-      <Filter>Source files</Filter>
+      <Filter>Source files\periph</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

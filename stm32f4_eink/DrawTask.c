@@ -11,7 +11,6 @@ void StartDrawTask(void const * argument) {
 	status_view = StatusView.init();	
 	battery_view = BatteryView.init();	
 
-	GDisplay *g = gdispGetDisplay(0);
 	while (1) {	
 #ifdef INCLUDE_uxTaskGetStackHighWaterMark
 		DrawTask_Watermark = uxTaskGetStackHighWaterMark(NULL);
@@ -35,12 +34,13 @@ void StartDrawTask(void const * argument) {
 		DrawTask_Watermark = uxTaskGetStackHighWaterMark(NULL);
 #endif
 
-		osThreadYield();			
 	}
 }
 
 static void start() {
-
+//	strncpy(SystemState.status->message, "poop", 5);
+//	SystemState.status->has_message = true;
+//	xTaskNotify(drawTaskHandle, 0x01, eSetBits);
 }
 const struct drawtask DrawTask = { 
 	.start = start,		
